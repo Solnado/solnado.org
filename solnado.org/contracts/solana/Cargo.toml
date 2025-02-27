@@ -1,0 +1,13 @@
+[package]
+name = "sheriff_cash"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+solana-program = "1.9.5"
+anchor-lang = "0.24.2"
+anchor-spl = "0.24.2"
+rand = "0.8.4"
+
+[lib]
+crate-type = ["cdylib", "lib"]

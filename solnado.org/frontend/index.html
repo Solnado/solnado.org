@@ -1,0 +1,1816 @@
+<!DOCTYPE html>
+
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solnado - Crypto Mixer</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="icon" type="image/png" href="/static/favvv.png">
+    <style>
+        :root {
+            --primary-color: #0f172a;
+            --secondary-color: #1e3a8a;
+            --accent-color: #3b82f6;
+        }
+        
+        body {
+            background-color: var(--primary-color);
+            color: #ffffff;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .navbar {
+            padding: 0 !important;
+            background-color: rgba(15, 23, 42, 0.95) !important;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(59, 130, 246, 0.1);
+        }
+
+        .navbar .container {
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+
+        .navbar-brand {
+            padding: 1rem 0;
+            position: relative;
+            font-weight: 700;
+            font-size: 1.5rem;
+            letter-spacing: 1px;
+            margin-left: 0;
+            pointer-events: none;
+        }
+
+
+        .logo-wrapper {
+            background: linear-gradient(45deg, #60a5fa, #1e3a8a);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .hero-section {
+            min-height: 85vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(45deg, #0f172a, #1e3a8a);
+            padding: 6rem 0 2rem;
+        }
+
+        .container {
+            max-width: 1140px;
+        }
+
+        @media (min-width: 992px) {
+            .hero-content {
+                padding-right: 3rem;
+            }
+            
+            .mixer-box-wrapper {
+                padding-left: 3rem;
+            }
+        }
+
+        .mixer-box {
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 1.2rem;
+            border: 1px solid rgba(59, 130, 246, 0.1);
+            max-width: 450px;
+            margin: 0 auto;
+        }
+
+        .btn-custom {
+            background: #3b82f6;
+            border: none;
+            color: white;
+            font-weight: bold;
+            padding: 12px 30px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-custom:hover {
+            background: #2563eb;
+            box-shadow: 0 5px 15px rgba(59, 130, 246, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .nav-link {
+            font-weight: 500;
+            color: #ffffff !important;
+            margin: 0 0.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+            padding-top: 1.5rem !important;
+            padding-bottom: 1.5rem !important;
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: #3b82f6;
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+            border-radius: 0 0 4px 4px;
+        }
+
+        .nav-link:hover::before {
+            transform: scaleX(1);
+        }
+
+        .nav-link:hover {
+            color: #60a5fa !important;
+        }
+
+        .btn-buy {
+            background: linear-gradient(45deg, #3b82f6, #1e3a8a);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-weight: 600;
+            border: none;
+            transition: all 0.3s ease;
+            margin: 1rem 0;
+        }
+
+        .btn-buy:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(59, 130, 246, 0.3);
+            color: white;
+        }
+
+        .home-icon {
+            font-size: 1.2rem;
+            margin-right: 0.5rem;
+        }
+
+        .hero-title {
+            font-weight: 800;
+            font-size: 3.5rem;
+            line-height: 1.2;
+            background: linear-gradient(45deg, #fff, #60a5fa);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 30px rgba(59, 130, 246, 0.3);
+            margin-bottom: 2rem;
+        }
+
+        .mixer-input {
+            padding: 0.8rem !important;
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid rgba(59, 130, 246, 0.1);
+            border-radius: 8px;
+        }
+
+        .mixer-input input {
+            color: white;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .mixer-input input:focus {
+            outline: none;
+            box-shadow: none;
+        }
+
+        .crypto-icon {
+            width: 24px;
+            height: 24px;
+        }
+
+        .swap-icon-wrapper {
+            width: 40px;
+            height: 40px;
+            background: rgba(59, 130, 246, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            color: #3b82f6;
+        }
+
+        .btn-custom {
+            background: #3b82f6;
+            font-size: 1.2rem;
+        }
+
+        .btn-custom:hover {
+            background: #2563eb;
+            box-shadow: 0 5px 15px rgba(59, 130, 246, 0.3);
+            transform: translateY(-2px);
+        }
+
+        label {
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+
+        ::placeholder {
+            color: #64748b !important;
+        }
+
+        .crypto-selector {
+            position: relative;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            min-width: 120px;
+            padding: 0.5rem 0.8rem;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .crypto-selector:hover {
+            background: rgba(59, 130, 246, 0.1);
+        }
+
+        .crypto-selector .crypto-icon {
+            width: 24px;
+            height: 24px;
+            margin-right: 8px;
+        }
+
+        .crypto-selector .crypto-name {
+            font-weight: 600;
+            margin-right: 8px;
+        }
+
+        .crypto-selector .fa-chevron-down {
+            margin-left: auto;
+            font-size: 12px;
+            opacity: 0.7;
+        }
+
+        .mixer-input input {
+            text-align: right;
+            min-width: 120px;
+            flex: 1;
+        }
+
+        .crypto-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: rgba(15, 23, 42, 0.95);
+            border: 1px solid rgba(59, 130, 246, 0.1);
+            border-radius: 8px;
+            padding: 0.5rem;
+            margin-top: 0.5rem;
+            min-width: 150px;
+            display: none;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .crypto-dropdown.show {
+            display: block;
+        }
+
+        .crypto-option {
+            display: flex;
+            align-items: center;
+            padding: 0.5rem 1rem;
+            transition: all 0.3s ease;
+            border-radius: 4px;
+        }
+
+        .crypto-option:hover {
+            background: rgba(59, 130, 246, 0.1);
+        }
+
+        .crypto-option img {
+            margin-right: 0.5rem;
+        }
+
+        .crypto-static {
+            display: flex;
+            align-items: center;
+            min-width: 120px;
+            padding: 4px 8px;
+            border-radius: 6px;
+        }
+
+        .crypto-static .crypto-icon {
+            width: 24px;
+            height: 24px;
+            margin-right: 12px;
+        }
+
+        .crypto-static .crypto-name {
+            font-weight: 600;
+            font-size: 1rem;
+            color: #fff;
+        }
+
+        .mixer-input.form-control {
+            background: rgba(15, 23, 42, 0.9);
+            border: 1px solid rgba(59, 130, 246, 0.1);
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .mixer-input.form-control:focus {
+            background: rgba(30, 58, 138, 0.3);
+            border-color: rgba(59, 130, 246, 0.5);
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1);
+            color: white;
+        }
+
+        .mixer-input.form-control::placeholder {
+            color: rgba(148, 163, 184, 0.7) !important;
+        }
+
+        .mixer-input input {
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 500;
+            background: transparent;
+        }
+
+        .mixer-input input:focus {
+            background: transparent;
+            outline: none;
+            box-shadow: none;
+            color: white;
+        }
+
+        /* Webkit için autocomplete stilini özelleştirme */
+        input:-webkit-autofill,
+        input:-webkit-autofill:hover,
+        input:-webkit-autofill:focus {
+            -webkit-text-fill-color: white;
+            -webkit-box-shadow: 0 0 0px 1000px rgba(30, 58, 138, 0.3) inset;
+            transition: background-color 5000s ease-in-out 0s;
+        }
+
+        .how-it-works {
+            background: linear-gradient(180deg, var(--primary-color) 0%, rgba(15, 23, 42, 0.95) 100%);
+            padding: 100px 0;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(45deg, #fff, #60a5fa);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+
+        .section-description {
+            color: #94a3b8;
+            font-size: 1.2rem;
+            font-weight: 500;
+            margin-top: 1.5rem;
+        }
+
+        .feature-box {
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid rgba(59, 130, 246, 0.1);
+            border-radius: 15px;
+            padding: 2rem 1.8rem;
+            height: 300px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-icon {
+            position: absolute;
+            top: 2rem;
+            left: 2rem;
+            font-size: 1.5rem;
+            color: #3b82f6;
+            opacity: 0.9;
+            background: rgba(59, 130, 246, 0.1);
+            padding: 0.8rem;
+            border-radius: 12px;
+        }
+
+        .feature-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 0.8rem;
+            margin-top: 1.8rem;
+            padding: 0 0.2rem;
+            white-space: normal;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+            line-height: 1.3;
+        }
+
+        .feature-text {
+            color: #94a3b8;
+            font-size: 0.92rem;
+            line-height: 1.5;
+            margin-top: 0.6rem;
+            font-family: 'Inter', sans-serif;
+            letter-spacing: 0.2px;
+            text-align: left;
+            padding: 0 0.2rem;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 6;
+            -webkit-box-orient: vertical;
+            max-height: 200px;
+        }
+
+        .feature-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(59, 130, 246, 0.1);
+            border-color: rgba(59, 130, 246, 0.3);
+        }
+
+        .feature-content {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .feature-content h3 {
+            color: #60a5fa;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .feature-icon-simple {
+            position: absolute;
+            top: 0.8rem;
+            left: 1rem;
+            font-size: 1.3rem;
+            color: #3b82f6;
+            opacity: 0.9;
+        }
+
+        .feature-icon-simple .fa-check {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            font-size: 0.8rem;
+            color: #3b82f6;
+        }
+
+        .feature-item {
+            padding: 1.5rem;
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid rgba(59, 130, 246, 0.1);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .feature-item:hover {
+            background: rgba(30, 58, 138, 0.3);
+            border-color: rgba(59, 130, 246, 0.3);
+            transform: translateX(5px);
+        }
+
+        .feature-item-title {
+            color: #fff;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-item-text {
+            color: #94a3b8;
+            font-size: 0.95rem;
+            margin-bottom: 0;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(-20px); }
+            50% { transform: translateY(-30px); }
+        }
+
+        /* Mobil Responsive Stiller */
+        @media (max-width: 768px) {
+            .hero-section {
+                padding: 5rem 0 1.5rem;
+                min-height: auto;
+            }
+
+            .hero-content {
+                text-align: center;
+                padding: 0 1rem 2rem;
+            }
+
+            .hero-title {
+                font-size: 2rem;
+                line-height: 1.3;
+            }
+
+            .mixer-box-wrapper {
+                padding: 0;
+            }
+
+            .mixer-box {
+                padding: 1rem;
+                margin: 0 1rem;
+            }
+
+            .feature-box {
+                margin-bottom: 1.5rem;
+                height: auto;
+            }
+
+            .feature-content h3 {
+                font-size: 1.3rem;
+            }
+
+            .feature-text {
+                font-size: 0.9rem;
+            }
+
+            .feature-logo {
+                width: 200px !important;
+                height: 200px !important;
+                margin-top: 50px !important;
+            }
+
+            .faq-section {
+                padding: 0 1rem;
+            }
+
+            .faq-item {
+                margin-bottom: 1rem;
+            }
+
+            .faq-button {
+                padding: 1.2rem !important;
+                font-size: 1rem !important;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+                text-align: center !important;
+            }
+
+            .section-description {
+                text-align: center;
+                padding: 0 1rem;
+            }
+
+            .navbar .container {
+                padding: 0 1rem;
+            }
+
+            .navbar-brand {
+                font-size: 1.3rem;
+                padding: 0.8rem 0;
+            }
+
+            .navbar-brand::after {
+                bottom: 0.5rem;
+                right: 0rem;
+                font-size: 0.6rem;
+            }
+
+            .navbar-toggler {
+                padding: 0.5rem;
+                margin-right: 0;
+            }
+
+            .btn-buy {
+                margin-top: 1rem;
+                width: 100%;
+                text-align: center;
+            }
+
+            .how-it-works .row > div {
+                margin-bottom: 1.5rem;
+            }
+
+            .feature-item {
+                margin-bottom: 1rem;
+            }
+
+            /* Animasyon ayarları */
+            [data-aos] {
+                transform: none !important;
+                opacity: 1 !important;
+                visibility: visible !important;
+            }
+
+            .navbar-collapse {
+                background: rgba(15, 23, 42, 0.95);
+                padding: 1rem;
+                border-radius: 0 0 12px 12px;
+                border: 1px solid rgba(59, 130, 246, 0.1);
+                border-top: none;
+                margin: 0 -1rem;
+            }
+
+            .navbar-nav {
+                padding: 1rem 0;
+            }
+
+            .nav-item {
+                margin: 0.5rem 0;
+            }
+
+            .nav-link {
+                padding: 0.5rem 1rem;
+                border-radius: 8px;
+                transition: all 0.3s ease;
+            }
+
+            .nav-link:hover {
+                background: rgba(59, 130, 246, 0.1);
+            }
+
+            .btn-buy {
+                margin: 0.5rem 1rem;
+            }
+
+            .crypto-selector {
+                padding: 0.4rem 0.6rem;
+            }
+
+            .crypto-icon {
+                width: 20px;
+                height: 20px;
+            }
+
+            .form-control {
+                font-size: 0.85rem;
+            }
+
+            .btn-custom {
+                padding: 0.8rem !important;
+                font-size: 0.9rem;
+            }
+
+            /* Transaction Details için mobile özel stiller */
+            .transaction-info-box,
+            .deposit-box {
+                padding: 1rem;
+            }
+
+            .qr-code {
+                width: 120px;
+                height: 120px;
+                padding: 0.8rem;
+            }
+
+            .crypto-address {
+                font-size: 0.8rem;
+                padding: 0.6rem 0.8rem;
+            }
+
+            .sending-animation {
+                font-size: 0.8rem;
+            }
+        }
+
+        /* Tablet Responsive */
+        @media (min-width: 769px) and (max-width: 991px) {
+            .hero-section {
+                padding-top: 7rem;
+            }
+
+            .feature-logo {
+                width: 250px !important;
+                height: 250px !important;
+            }
+
+            .feature-box {
+                height: auto;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .navbar-brand {
+                font-size: 1.4rem;
+            }
+
+            .navbar-brand::after {
+                right: 0rem;
+            }
+        }
+
+        /* Modern Hamburger Menu */
+        .navbar-toggler {
+            padding: 0;
+            border: none;
+            background: transparent;
+            width: 30px;
+            height: 30px;
+            position: relative;
+            margin-right: 0;
+        }
+
+        .navbar-toggler:focus {
+            box-shadow: none;
+        }
+
+        .hamburger-icon {
+            width: 30px;
+            height: 2px;
+            background: #3b82f6;
+            display: block;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .hamburger-icon::before,
+        .hamburger-icon::after {
+            content: '';
+            width: 30px;
+            height: 2px;
+            background: #3b82f6;
+            position: absolute;
+            left: 0;
+            transition: all 0.3s ease;
+        }
+
+        .hamburger-icon::before {
+            top: -8px;
+        }
+
+        .hamburger-icon::after {
+            bottom: -8px;
+        }
+
+        .navbar-toggler[aria-expanded="true"] .hamburger-icon {
+            background: transparent;
+        }
+
+        .navbar-toggler[aria-expanded="true"] .hamburger-icon::before {
+            transform: rotate(45deg);
+            top: 0;
+        }
+
+        .navbar-toggler[aria-expanded="true"] .hamburger-icon::after {
+            transform: rotate(-45deg);
+            bottom: 0;
+        }
+
+        /* Input spinners'ı kaldır */
+        input[type="number"]::-webkit-outer-spin-button,
+        input[type="number"]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        input[type="number"] {
+            -moz-appearance: textfield;
+        }
+
+        /* Firefox için */
+        input[type="number"] {
+            appearance: textfield;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 80px; /* Navbar yüksekliği kadar padding ekledik */
+        }
+
+        @media (max-width: 768px) {
+            html {
+                scroll-padding-top: 60px; /* Mobilde daha az padding */
+            }
+        }
+
+        .social-link:hover {
+            transform: translateY(-5px);
+            background: rgba(30, 58, 138, 0.3);
+            border-color: rgba(59, 130, 246, 0.3);
+            color: #60a5fa;
+        }
+
+        @media (max-width: 768px) {
+            .social-links {
+                gap: 1rem !important;
+            }
+
+            .social-link {
+                width: 50px !important;
+                height: 50px !important;
+                font-size: 20px !important;
+            }
+        }
+
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(59, 130, 246, 0.1);
+            border-radius: 50%;
+            border-top-color: #3b82f6;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .transaction-details {
+            display: none;
+            background: rgba(15, 23, 42, 0.5);
+            border: none;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .qr-code {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            width: 150px;
+            height: 150px;
+            margin: 1rem auto;
+        }
+
+        .crypto-address {
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+
+        .crypto-address::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(59, 130, 246, 0.1);
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+        }
+
+        .crypto-address::after {
+            content: 'Copy to Clipboard';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.9);
+            background: rgba(59, 130, 246, 0.9);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            opacity: 0;
+            transition: all 0.3s ease;
+            pointer-events: none;
+            backdrop-filter: blur(4px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            white-space: nowrap;
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        .crypto-address:hover::before {
+            transform: translateX(0);
+        }
+
+        .crypto-address:hover::after {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .crypto-address.copied::after {
+            content: 'Copied!';
+            background: rgba(16, 185, 129, 0.9);
+            animation: pulse 0.3s ease;
+        }
+
+        @keyframes pulse {
+            0% { transform: translate(-50%, -50%) scale(0.9); }
+            50% { transform: translate(-50%, -50%) scale(1.1); }
+            100% { transform: translate(-50%, -50%) scale(1); }
+        }
+
+        .crypto-address .copy-icon {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #3b82f6;
+            opacity: 0.5;
+            transition: all 0.3s ease;
+        }
+
+        .crypto-address:hover .copy-icon {
+            opacity: 1;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .sending-animation {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 1rem;
+            color: #3b82f6;
+            font-size: 0.9rem;
+        }
+
+        .sending-dots {
+            display: flex;
+            gap: 4px;
+        }
+
+        .sending-dot {
+            width: 4px;
+            height: 4px;
+            background: #3b82f6;
+            border-radius: 50%;
+            animation: sendingDot 1.5s infinite;
+        }
+
+        .sending-dot:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .sending-dot:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes sendingDot {
+            0%, 100% { transform: translateY(0); opacity: 0.3; }
+            50% { transform: translateY(-4px); opacity: 1; }
+        }
+
+        .error-message {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(220, 38, 38, 0.9);
+            color: white;
+            padding: 1rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            z-index: 1000;
+            backdrop-filter: blur(4px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @keyframes slideOut {
+            from { transform: translateX(0); opacity: 1; }
+            to { transform: translateX(100%); opacity: 0; }
+        }
+
+        /* Additional styles for mixer system */
+        .received-form {
+            display: none;
+            margin-top: 20px;
+        }
+
+        .transaction-details {
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid rgba(59, 130, 246, 0.1);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .transaction-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem 0;
+            border-bottom: 1px solid rgba(59, 130, 246, 0.1);
+        }
+
+        .transaction-row:last-child {
+            border-bottom: none;
+        }
+
+        .qr-code {
+            max-width: 200px;
+            height: auto;
+            background: white;
+            padding: 1rem;
+            border-radius: 10px;
+            margin: 1rem auto;
+            display: block;
+        }
+
+        .deposit-address {
+            word-break: break-all;
+            font-family: monospace;
+            background: rgba(15, 23, 42, 0.3);
+            padding: 0.8rem;
+            border-radius: 8px;
+            margin-top: 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: whitesmoke;
+        }
+
+        .deposit-address:hover {
+            background: rgba(59, 130, 246, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <div class="navbar-brand">
+
+                <img src="/static/logo.png" alt="logo" class="logo-icon">
+            </div>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="hamburger-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#home" onclick="scrollToTop(event)">
+                            <i class="fas fa-home home-icon"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#how-it-works">HOW?</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://github.com/anonsol" target="_blank">
+                            <i class="fab fa-github"></i> GITHUB
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">CONTACT</a>
+                    </li>
+                </ul>
+                <a href="https://pump.fun/coin/" class="btn btn-buy">
+                    BUY $SOLNADO
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section" id="home">
+        <div class="container">
+            <div class="row align-items-center justify-content-center">
+                <div class="col-lg-6 text-start hero-content">
+                    <h1 class="hero-title">No Tracks. No Traces.<br>Just Pure Privacy.</h1>
+                    <p class="lead mb-4">A privacy-first transaction mixer for Solana. Obfuscate your transactions, stay anonymous, and take full control of your privacy.</p>
+                </div>
+                <div class="col-lg-6 mixer-box-wrapper">
+                    <div class="mixer-box">
+                        <form class="exchange-form">
+                            <div class="mb-3">
+                                <label>You pay</label>
+                                <div class="mixer-input d-flex align-items-center">
+                                    <div class="crypto-selector">
+                                        <div class="d-flex align-items-center gap-2">
+                                            <img class="crypto-icon" src="/static/assets/img/sol.png" alt="SOL">
+                                            <span>SOL</span>
+                                        </div>
+                                    </div>
+                                    <input type="text" class="form-control border-0 bg-transparent" id="pay-amount" placeholder="Amount">
+                                </div>
+                            </div>
+
+                            <div class="swap-icon-wrapper mb-3">
+                                <i class="fas fa-arrow-down"></i>
+                            </div>
+
+                            <div class="mb-3">
+                                <label>You receive</label>
+                                <div class="mixer-input d-flex align-items-center">
+                                    <div class="crypto-selector">
+                                        <div class="d-flex align-items-center gap-2">
+                                            <img class="crypto-icon" src="/static/assets/img/sol.png" alt="ETH">
+                                            <span>SOL</span>
+                                        </div>
+                                    </div>
+                                    <input type="text" class="form-control border-0 bg-transparent" id="receive-amount" placeholder="Amount" readonly>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label>Receive address</label>
+                                <div class="mixer-input">
+                                    <input type="text" class="form-control w-100" id="receive-address" name="receive_address" placeholder="Enter receiving address" style="color: #fff; background: transparent; border: 1px solid rgba(255, 255, 255, 0.1);">
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-custom w-100">
+                                START
+                            </button>
+                        </form>
+
+                        <div class="received-form">
+                            <div class="transaction-details">
+                                <h6 class="mb-3">Transaction Details</h6>
+                                <div class="transaction-row">
+                                    <span class="text-secondary">Amount:</span>
+                                    <span class="transaction-amount">1.40 SOL</span>
+                                </div>
+                                <div class="transaction-row">
+                                    <span class="text-secondary">Network Fee:</span>
+                                    <span class="transaction-fee">0.01 SOL</span>
+                                </div>
+                                <div class="transaction-row">
+                                    <span class="text-secondary">You Receive:</span>
+                                    <span class="transaction-receive">1.39 SOL</span>
+                                </div>
+                                <div class="transaction-row">
+                                    <span class="text-secondary">Receiving Address:</span>
+                                    <span class="transaction-receive-address text-truncate ms-2" style="max-width: 200px;"></span>
+                                </div>
+                            </div>
+
+                            <div class="mixer-input mb-3">
+                                <label>Send to address</label>
+                                <button type="button" class="btn w-100 text-start copy-address" style="cursor: pointer;">
+                                    <div class="d-flex align-items-center gap-2">
+                                        <img class="crypto-icon chain-icon" src="/static/assets/img/sol.png">
+                                        <div class="flex-grow-1 overflow-hidden">
+                                            <span class="deposit-address text-truncate d-block"></span>
+                                            <span class="copy-tooltip" style="display: none; color: whitesmoke">Copied!</span>
+                                        </div>
+                                    </div>
+                                </button>
+                                <div class="text-center">
+                                    <img class="qr-code" src="/static/assets/img/qrc.png">
+                                </div>
+                            </div>
+
+                            <div class="mixer-input d-flex align-items-center justify-content-between">
+                                <span><span class="text-primary">Status: </span>Waiting for Payment Solana</span>
+                                <div class="loader">
+                                    <div class="dot"></div>
+                                    <div class="dot"></div>
+                                    <div class="dot"></div>
+                                    <div class="dot"></div>
+                                    <div class="dot"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="how-it-works py-5" id="how-it-works">
+        <div class="container">
+            <div class="text-center mb-5" data-aos="fade-up" data-aos-duration="800">
+                <h2 class="section-title">How It Works solnado.org</h2>
+                <p class="section-description">Here's how it works:</p>
+            </div>
+            <div class="row">
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="feature-box" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
+                        <div class="feature-icon-simple">
+                            <i class="fas fa-credit-card"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h3 class="feature-title">Deposit & Obfuscation</h3>
+                            <p class="feature-text">
+                                solnado.org uses multi-layered obfuscation, randomized transaction delays, and liquidity injection to break all traceability.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="feature-box" data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
+                        <div class="feature-icon-simple">
+                            <i class="fas fa-random"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h3 class="feature-title">Sequential Redistribution</h3>
+                            <p class="feature-text">
+                                Funds are transferred through intermediary wallets with randomized time delays, ensuring no predictable transaction patterns.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="feature-box" data-aos="fade-up" data-aos-duration="800" data-aos-delay="300">
+                        <div class="feature-icon-simple">
+                            <i class="fas fa-exchange-alt"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h3 class="feature-title">Exchange Liquidity Injection</h3>
+                            <p class="feature-text">
+                                A portion of the funds is routed through high-liquidity exchanges, eliminating on-chain history and breaking transaction links.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="feature-box" data-aos="fade-up" data-aos-duration="800" data-aos-delay="400">
+                        <div class="feature-icon-simple">
+                            <div style="position: relative; width: 1em; height: 1em; border: 2px solid #3b82f6; border-radius: 3px; display: flex; align-items: center; justify-content: center; font-size: 1.2em;">
+                                <span style="font-weight: bold; font-size: 0.6em; color: #3b82f6;">24</span>
+                                <div style="position: absolute; bottom: -2px; left: 50%; transform: translateX(-50%); width: 3px; height: 3px; background: #3b82f6;"></div>
+                            </div>
+                        </div>
+                        <div class="feature-content">
+                            <h3 class="feature-title">Clean Wallet Distribution</h3>
+                            <p class="feature-text">
+                                Mixed funds are sent from pre-prepared clean wallets to the final recipient in randomized amounts and intervals.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="mb-5">
+                        <h2 class="section-title" style="text-align: left;">Features</h2>
+                        <p class="section-description">solnado.org ensures full anonymity by leveraging cutting-edge privacy mechanisms, eliminating traceable patterns.</p>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="feature-list">
+                                <div class="feature-item mb-4" data-aos="fade-right" data-aos-duration="800" data-aos-delay="100">
+                                    <h3 class="feature-item-title">Multi-Chain Support</h3>
+                                    <p class="feature-item-text">Works on ETH, BSC, and SOL.</p>
+                                </div>
+                                <div class="feature-item mb-4" data-aos="fade-right" data-aos-duration="800" data-aos-delay="200">
+                                    <h3 class="feature-item-title">Obfuscation Engine</h3>
+                                    <p class="feature-item-text">Prevents transaction tracing.</p>
+                                </div>
+                                <div class="feature-item mb-4" data-aos="fade-right" data-aos-duration="800" data-aos-delay="300">
+                                    <h3 class="feature-item-title">Randomized Payouts</h3>
+                                    <p class="feature-item-text">Ensures unlinkable outputs.</p>
+                                </div>
+                                <div class="feature-item mb-4" data-aos="fade-right" data-aos-duration="800" data-aos-delay="400">
+                                    <h3 class="feature-item-title">Buyback Mechanism</h3>
+                                    <p class="feature-item-text">$SOLNADO supply deflates.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 d-flex align-items-center justify-content-center flex-column">
+                    <div class="feature-logo" style="width: 300px; height: 300px; position: relative; transform: perspective(1000px) rotateX(10deg); margin-top: 100px;">
+                        <div style="width: 100%; height: 100%; position: relative;">
+                            <div style="
+                                width: 100%;
+                                height: 100%;
+                                border-radius: 50%;
+                                background: linear-gradient(45deg, #0f172a 0%, #3b82f6 50%, #0f172a 100%);
+                                padding: 40px;
+                                box-shadow: 
+                                    0 20px 40px rgba(0,0,0,0.4),
+                                    0 0 20px rgba(59, 130, 246, 0.2),
+                                    inset 0 0 20px rgba(59, 130, 246, 0.1);
+                                transform: translateY(-20px);
+                                animation: float 3s ease-in-out infinite;
+                            ">
+                                <div style="
+                                    width: 100%;
+                                    height: 100%;
+                                    background: var(--primary-color);
+                                    border-radius: 50%;
+                                    box-shadow: inset 0 0 30px rgba(0,0,0,0.5);
+                                "></div>
+                            </div>
+                            <div style="position: absolute; bottom: -40px; left: 50%; transform: translateX(-50%); width: 200px; height: 40px; background: linear-gradient(to bottom, rgba(0,0,0,0.3), transparent); filter: blur(10px); border-radius: 50%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <!-- Sol taraftaki 3 soru -->
+                    <div class="faq-section">
+                        <!-- 1. Soru -->
+                        <div class="faq-item mb-3" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100" style="background: rgba(15, 23, 42, 0.5); border: 1px solid rgba(59, 130, 246, 0.1); border-radius: 12px; overflow: hidden;">
+                            <button class="faq-button w-100 d-flex align-items-center justify-content-between" style="background: transparent; border: none; padding: 1.5rem; color: #fff; font-size: 1.1rem; font-weight: 500; text-align: left; cursor: pointer;" onclick="toggleFaq(this)">
+                                How does solnado.org protect my privacy?
+                                <i class="fas fa-chevron-down" style="color: #3b82f6; transition: transform 0.3s ease;"></i>
+                            </button>
+                            <div class="faq-content" style="max-height: 0; overflow: hidden; transition: max-height 0.3s ease; padding: 0 1.5rem;">
+                                <p style="color: #94a3b8; font-size: 0.95rem; padding-bottom: 1.5rem; margin: 0;">
+                                    solnado.org uses multi-layered obfuscation, randomized transaction delays, and liquidity injection to break all traceability.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- 2. Soru -->
+                        <div class="faq-item mb-3" data-aos="fade-up" data-aos-duration="800" data-aos-delay="200" style="background: rgba(15, 23, 42, 0.5); border: 1px solid rgba(59, 130, 246, 0.1); border-radius: 12px; overflow: hidden;">
+                            <button class="faq-button w-100 d-flex align-items-center justify-content-between" style="background: transparent; border: none; padding: 1.5rem; color: #fff; font-size: 1.1rem; font-weight: 500; text-align: left; cursor: pointer;" onclick="toggleFaq(this)">
+                                What blockchains does solnado.org support?
+                                <i class="fas fa-chevron-down" style="color: #3b82f6; transition: transform 0.3s ease;"></i>
+                            </button>
+                            <div class="faq-content" style="max-height: 0; overflow: hidden; transition: max-height 0.3s ease; padding: 0 1.5rem;">
+                                <p style="color: #94a3b8; font-size: 0.95rem; padding-bottom: 1.5rem; margin: 0;">
+                                    solnado.org operates on Ethereum (ETH), Binance Smart Chain (BSC), and Solana (SOL) with more chains planned.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- 3. Soru -->
+                        <div class="faq-item mb-3" data-aos="fade-up" data-aos-duration="800" data-aos-delay="300" style="background: rgba(15, 23, 42, 0.5); border: 1px solid rgba(59, 130, 246, 0.1); border-radius: 12px; overflow: hidden;">
+                            <button class="faq-button w-100 d-flex align-items-center justify-content-between" style="background: transparent; border: none; padding: 1.5rem; color: #fff; font-size: 1.1rem; font-weight: 500; text-align: left; cursor: pointer;" onclick="toggleFaq(this)">
+                                How much does it cost to use solnado.org?
+                                <i class="fas fa-chevron-down" style="color: #3b82f6; transition: transform 0.3s ease;"></i>
+                            </button>
+                            <div class="faq-content" style="max-height: 0; overflow: hidden; transition: max-height 0.3s ease; padding: 0 1.5rem;">
+                                <p style="color: #94a3b8; font-size: 0.95rem; padding-bottom: 1.5rem; margin: 0;">
+                                    solnado.org charges a 0.7% mixing fee per transaction. Users holding $1000+ in $SOLNADO get free mixing.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <!-- Sağ taraftaki 3 soru -->
+                    <div class="faq-section">
+                        <!-- 4. Soru -->
+                        <div class="faq-item mb-3" data-aos="fade-up" data-aos-duration="800" data-aos-delay="400" style="background: rgba(15, 23, 42, 0.5); border: 1px solid rgba(59, 130, 246, 0.1); border-radius: 12px; overflow: hidden;">
+                            <button class="faq-button w-100 d-flex align-items-center justify-content-between" style="background: transparent; border: none; padding: 1.5rem; color: #fff; font-size: 1.1rem; font-weight: 500; text-align: left; cursor: pointer;" onclick="toggleFaq(this)">
+                                How long does mixing take?
+                                <i class="fas fa-chevron-down" style="color: #3b82f6; transition: transform 0.3s ease;"></i>
+                            </button>
+                            <div class="faq-content" style="max-height: 0; overflow: hidden; transition: max-height 0.3s ease; padding: 0 1.5rem;">
+                                <p style="color: #94a3b8; font-size: 0.95rem; padding-bottom: 1.5rem; margin: 0;">
+                                    Mixing time varies but typically takes 10-30 minutes. Randomized delays are applied for added security.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- 5. Soru -->
+                        <div class="faq-item mb-3" data-aos="fade-up" data-aos-duration="800" data-aos-delay="500" style="background: rgba(15, 23, 42, 0.5); border: 1px solid rgba(59, 130, 246, 0.1); border-radius: 12px; overflow: hidden;">
+                            <button class="faq-button w-100 d-flex align-items-center justify-content-between" style="background: transparent; border: none; padding: 1.5rem; color: #fff; font-size: 1.1rem; font-weight: 500; text-align: left; cursor: pointer;" onclick="toggleFaq(this)">
+                                Can my transactions be tracked?
+                                <i class="fas fa-chevron-down" style="color: #3b82f6; transition: transform 0.3s ease;"></i>
+                            </button>
+                            <div class="faq-content" style="max-height: 0; overflow: hidden; transition: max-height 0.3s ease; padding: 0 1.5rem;">
+                                <p style="color: #94a3b8; font-size: 0.95rem; padding-bottom: 1.5rem; margin: 0;">
+                                    No. solnado.org's multi-layered obfuscation makes transactions untraceable, even for forensic tools.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- 6. Soru -->
+                        <div class="faq-item mb-3" data-aos="fade-up" data-aos-duration="800" data-aos-delay="600" style="background: rgba(15, 23, 42, 0.5); border: 1px solid rgba(59, 130, 246, 0.1); border-radius: 12px; overflow: hidden;">
+                            <button class="faq-button w-100 d-flex align-items-center justify-content-between" style="background: transparent; border: none; padding: 1.5rem; color: #fff; font-size: 1.1rem; font-weight: 500; text-align: left; cursor: pointer;" onclick="toggleFaq(this)">
+                                Is solnado.org fully decentralized?
+                                <i class="fas fa-chevron-down" style="color: #3b82f6; transition: transform 0.3s ease;"></i>
+                            </button>
+                            <div class="faq-content" style="max-height: 0; overflow: hidden; transition: max-height 0.3s ease; padding: 0 1.5rem;">
+                                <p style="color: #94a3b8; font-size: 0.95rem; padding-bottom: 1.5rem; margin: 0;">
+                                    Yes. solnado.org runs on decentralized smart contracts with zero logs, full anonymity, and no centralized control.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact py-5" id="contact" style="background: rgba(15, 23, 42, 0.3);">
+        <div class="container">
+            <div class="text-center mb-5" data-aos="fade-up" data-aos-duration="800">
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="social-links d-flex justify-content-center gap-4" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
+                        <!-- Telegram -->
+                        <a href="https://t.me/solnado_org" target="_blank" class="social-link" style="
+                            width: 60px;
+                            height: 60px;
+                            background: rgba(15, 23, 42, 0.5);
+                            border: 1px solid rgba(59, 130, 246, 0.1);
+                            border-radius: 12px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            color: #3b82f6;
+                            font-size: 24px;
+                            transition: all 0.3s ease;
+                        ">
+                            <i class="fab fa-telegram"></i>
+                        </a>
+
+                        <!-- Twitter -->
+                        <a href="https://x.com/solnado_org" target="_blank" class="social-link" style="
+                            width: 60px;
+                            height: 60px;
+                            background: rgba(15, 23, 42, 0.5);
+                            border: 1px solid rgba(59, 130, 246, 0.1);
+                            border-radius: 12px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            color: #3b82f6;
+                            font-size: 24px;
+                            transition: all 0.3s ease;
+                        ">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+
+                        <!-- Github -->
+                        <a href="https://github.com/anonsol" target="_blank" class="social-link" style="
+                            width: 60px;
+                            height: 60px;
+                            background: rgba(15, 23, 42, 0.5);
+                            border: 1px solid rgba(59, 130, 246, 0.1);
+                            border-radius: 12px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            color: #3b82f6;
+                            font-size: 24px;
+                            transition: all 0.3s ease;
+                        ">
+                            <i class="fab fa-github"></i>
+                        </a>
+
+                        <!-- Dexscreener -->
+                        <a href="https://dexscreener.com/anonsol" target="_blank" class="social-link" style="
+                            width: 60px;
+                            height: 60px;
+                            background: rgba(15, 23, 42, 0.5);
+                            border: 1px solid rgba(59, 130, 246, 0.1);
+                            border-radius: 12px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            color: #3b82f6;
+                            font-size: 24px;
+                            transition: all 0.3s ease;
+                        ">
+                            <i class="fas fa-chart-line"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script>
+    function toggleDropdown(type, event) {
+        event.stopPropagation();
+        const dropdown = document.getElementById(`${type}-dropdown`);
+        dropdown.classList.toggle('show');
+        
+        // Close other dropdown
+        const otherType = type === 'pay' ? 'receive' : 'pay';
+        const otherDropdown = document.getElementById(`${otherType}-dropdown`);
+        otherDropdown.classList.remove('show');
+    }
+
+    function selectCrypto(type, crypto, iconUrl, event) {
+        event.stopPropagation();
+        const icon = document.getElementById(`${type}-crypto-icon`);
+        const name = document.getElementById(`${type}-crypto-name`);
+        const dropdown = document.getElementById(`${type}-dropdown`);
+        
+        icon.src = iconUrl;
+        icon.alt = crypto;
+        name.textContent = crypto;
+        dropdown.classList.remove('show');
+
+        // Alttaki receive kısmını güncelle
+        if (type === 'pay') {
+            const receiveIcon = document.querySelector('.crypto-static img');
+            const receiveName = document.querySelector('.crypto-static span');
+            
+            receiveIcon.src = iconUrl;
+            receiveIcon.alt = crypto;
+            receiveName.textContent = crypto;
+        }
+    }
+
+    // Close dropdowns when clicking outside
+    document.addEventListener('click', function(event) {
+        document.querySelectorAll('.crypto-dropdown').forEach(dropdown => {
+            dropdown.classList.remove('show');
+        });
+    });
+
+    function toggleFaq(button) {
+        const content = button.nextElementSibling;
+        const icon = button.querySelector('.fa-chevron-down');
+        
+        if (!content.style.maxHeight || content.style.maxHeight === "0px") {
+            content.style.maxHeight = content.scrollHeight + "px";
+            icon.style.transform = 'rotate(180deg)';
+        } else {
+            content.style.maxHeight = "0px";
+            icon.style.transform = 'rotate(0deg)';
+        }
+    }
+
+    // Mobil cihazlarda AOS'u devre dışı bırak
+    if (window.innerWidth < 768) {
+        AOS.init({
+            disable: true
+        });
+    } else {
+        AOS.init({
+            once: true,
+            offset: 100
+        });
+    }
+
+    // Resize olayını dinle
+    window.addEventListener('resize', () => {
+        if (window.innerWidth < 768) {
+            AOS.init({
+                disable: true
+            });
+        }
+    });
+
+    function isNumberKey(evt) {
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        if (charCode != 46 && charCode > 31 && (charCode < 48 || charCode > 57)) {
+            return false;
+        }
+        return true;
+    }
+
+    function scrollToTop(event) {
+        event.preventDefault();
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    }
+
+    function startTransaction() {
+        const amount = document.getElementById('payAmount').value;
+        const address = document.getElementById('receiveAddress').value;
+        
+        // Validasyon kontrolü
+        if (!amount || amount <= 0) {
+            showError('Amount field cannot be empty');
+            // Input'u vurgula
+            document.getElementById('payAmount').style.border = '1px solid rgba(220, 38, 38, 0.5)';
+            setTimeout(() => {
+                document.getElementById('payAmount').style.border = '';
+            }, 3000);
+            return;
+        }
+        
+        if (!address) {
+            showError('Receiving address field cannot be empty');
+            // Input'u vurgula
+            document.getElementById('receiveAddress').style.border = '1px solid rgba(220, 38, 38, 0.5)';
+            setTimeout(() => {
+                document.getElementById('receiveAddress').style.border = '';
+            }, 3000);
+            return;
+        }
+
+        const mixerForm = document.querySelector('.mixer-form');
+        const loadingSpinner = document.getElementById('loadingSpinner');
+        const transactionDetails = document.getElementById('transactionDetails');
+
+        mixerForm.style.display = 'none';
+        loadingSpinner.style.display = 'block';
+
+        setTimeout(() => {
+            loadingSpinner.style.display = 'none';
+            transactionDetails.style.display = 'block';
+        }, 1000);
+    }
+
+    function copyAddress(element) {
+        let addressText = $(element).find('.deposit-address').text();
+        
+        navigator.clipboard.writeText(addressText).then(() => {
+            let tooltip = $(element).find('.copy-tooltip');
+            tooltip.fadeIn();
+            
+            setTimeout(() => {
+                tooltip.fadeOut();
+            }, 2000);
+        });
+    }
+
+    // Hata mesajı gösterme fonksiyonu
+    function showError(message) {
+        // Varsa eski hata mesajını kaldır
+        const oldError = document.querySelector('.error-message');
+        if (oldError) {
+            oldError.remove();
+        }
+
+        const errorDiv = document.createElement('div');
+        errorDiv.className = 'error-message';
+        errorDiv.textContent = message;
+        errorDiv.style.animation = 'slideIn 0.3s ease';
+        document.body.appendChild(errorDiv);
+
+        // 3 saniye sonra hata mesajını kaldır
+        setTimeout(() => {
+            errorDiv.style.animation = 'slideOut 0.3s ease forwards';
+            setTimeout(() => {
+                errorDiv.remove();
+            }, 300);
+        }, 3000);
+
+        // Debug için konsola yazdır
+        console.log('Error shown:', message);
+    }
+
+    $(document).ready(function () {
+        // Amount input handling with proper validation and calculation
+        $("#pay-amount").on("input", function() {
+            // Remove any non-numeric characters except dots and commas
+            let inputValue = $(this).val().replace(/[^0-9.,]/g, '');
+            
+            // Replace comma with dot for calculation
+            inputValue = inputValue.replace(',', '.');
+            
+            // Validate the input
+            if (inputValue !== '' && !isNaN(inputValue)) {
+                // Convert to float for calculation
+                let amount = parseFloat(inputValue);
+                
+                // Calculate fee (0.7%)
+                let fee = amount * 0.007;
+                
+                // Calculate receive amount (amount - fee)
+                let receiveAmount = amount - fee;
+                
+                // Format to 8 decimal places
+                $("#receive-amount").val(receiveAmount.toFixed(8));
+            } else {
+                // Clear receive amount if input is invalid
+                $("#receive-amount").val('');
+            }
+            
+            // Update the input with sanitized value
+            $(this).val(inputValue);
+        });
+
+        // Form submission handler
+        $('.exchange-form').on('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form values
+            let payAmount = $("#pay-amount").val();
+            let receiveAddress = $("#receive-address").val();
+            
+            // Validate inputs
+            if (!payAmount || parseFloat(payAmount) <= 0) {
+                showError('Please enter a valid amount to pay');
+                return;
+            }
+            
+            if (!receiveAddress) {
+                showError('Please enter a receive address');
+                return;
+            }
+            
+            // Create transaction
+            $.ajax({
+                url: '/generate-deposit-address/',
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    output_address: receiveAddress,
+                    amount: parseFloat(payAmount)
+                }),
+                success: function(response) {
+                    console.log('Transaction created:', response);
+                    
+                    // Hide exchange form with fade effect
+                    $('.exchange-form').fadeOut(300, function() {
+                        // Update transaction details
+                        $('.transaction-amount').text(payAmount + ' SOL');
+                        $('.transaction-fee').text((parseFloat(payAmount) * 0.007).toFixed(8) + ' SOL');
+                        $('.transaction-receive').text(response.output_amount + ' SOL');
+                        $('.transaction-receive-address').text(receiveAddress);
+                        
+                        // Update deposit address and QR code
+                        $('.deposit-address').text(response.deposit_address);
+                        $('.qr-code').attr('src', response.qr_code_url);
+                        
+                        // Show received form with fade effect
+                        $('.received-form').fadeIn(300);
+                        
+                        // Store transaction ID for later use
+                        $('.received-form').data('transaction-id', response.transaction_id);
+                        
+                        // Hide transaction details initially
+                        $('.transaction-details').hide();
+                        
+                        // Start polling for balance
+                        startBalancePolling(response.deposit_address);
+                    });
+                },
+                error: function(xhr) {
+                    console.error('Error creating transaction:', xhr);
+                    showError('Error creating transaction. Please try again.');
+                }
+            });
+        });
+        
+        // Balance polling function
+        function startBalancePolling(walletAddress) {
+            let pollInterval = setInterval(function() {
+                $.ajax({
+                    url: '/check-wallet-balance/',
+                    method: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({
+                        wallet_address: walletAddress
+                    }),
+                    success: function(response) {
+                        if (response.balance > 0) {
+                            // Update status message
+                            $('.received-form .mixer-input:last-child span:first-child').html(
+                                `<span class="text-primary">Status: </span>Payment Received - Processing Mix`
+                            );
+                            
+                            // Get transaction details
+                            let transactionId = $('.received-form').data('transaction-id');
+                            $.ajax({
+                                url: `/transaction/${transactionId}/`,
+                                method: 'GET',
+                                success: function(txResponse) {
+                                    // Update transaction details
+                                    $('.transaction-amount').text(`${txResponse.input_amount} SOL`);
+                                    $('.transaction-fee').text(`${txResponse.fee_amount} SOL`);
+                                    $('.transaction-receive').text(`${txResponse.output_amount} SOL`);
+                                    $('.transaction-receive-address').text(txResponse.output_address);
+                                    
+                                    // Show transaction details with animation
+                                    $('.transaction-details').slideDown();
+                                }
+                            });
+                            
+                            clearInterval(pollInterval);
+                        }
+                    },
+                    error: function(xhr) {
+                        console.error('Error checking balance:', xhr);
+                        clearInterval(pollInterval);
+                    }
+                });
+            }, 10000); // Poll every 10 seconds
+        }
+
+        // Copy address functionality
+        $('.copy-address').on('click', function() {
+            let addressText = $(this).find('.deposit-address').text();
+            navigator.clipboard.writeText(addressText).then(() => {
+                let tooltip = $(this).find('.copy-tooltip');
+                tooltip.fadeIn();
+                setTimeout(() => {
+                    tooltip.fadeOut();
+                }, 2000);
+            });
+        });
+    });
+    </script>
+</body>
+</html>
